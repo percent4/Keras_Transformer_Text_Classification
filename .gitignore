@@ -1,0 +1,4 @@
+.idea
+src/__pycache__
+src/data/*/*.npz
+src/data/*/char_dict.json
