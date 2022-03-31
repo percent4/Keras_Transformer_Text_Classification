@@ -20,7 +20,7 @@ def create_cls_model(features):
     O_seq = TransformerBlock(8, 16, 128)(embeddings)
     O_seq = GlobalAveragePooling1D()(O_seq)
     O_seq = Dropout(0.5)(O_seq)
-    outputs = Dense(7, activation='sigmoid')(O_seq)
+    outputs = Dense(5, activation='sigmoid')(O_seq)
 
     model = Model(inputs=inputs, outputs=outputs)
     return model
@@ -28,12 +28,12 @@ def create_cls_model(features):
 
 # 模型训练主函数
 if __name__ == '__main__':
-    max_features = 4300
-    max_len = 128
-    batch_size = 32
+    max_features = 5500
+    max_len = 300
+    batch_size = 16
 
     print('Loading data...')
-    (x_train, y_train), (x_test, y_test) = data_loader(path='./data/weibo_sentiment/weibo_sentiment.npz', num_words=max_features)
+    (x_train, y_train), (x_test, y_test) = data_loader(path='./data/sougou_mini/sougou_mini.npz', num_words=max_features)
     print(len(x_train), 'train sequences')
     print(len(x_test), 'test sequences')
 
@@ -53,6 +53,8 @@ if __name__ == '__main__':
               batch_size=batch_size,
               epochs=10,
               validation_data=(x_test, y_test))
+    # 模型保存
+    model.save_weights('./data/sougou_mini/sougou_mini.h5')
 
     # 模型评估
     print('Evaluate...')

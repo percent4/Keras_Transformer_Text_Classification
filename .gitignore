@@ -1,4 +1,5 @@
 .idea
 src/__pycache__
 src/data/*/*.npz
+src/data/*/*.h5
 src/data/*/char_dict.json
